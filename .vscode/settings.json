@@ -1,0 +1,21 @@
+{
+  "editor.formatOnSave": true,
+  "editor.rulers": [80, 120],
+  "files.exclude": {
+    "**/bin": true,
+    "**/build": true
+  },
+  "search.exclude": {
+    "**/bin": true,
+    "**/build": true,
+    "**/.agent": true
+  },
+  "C_Cpp.default.cStandard": "c99",
+  "C_Cpp.default.compilerPath": "gcc",
+  "C_Cpp.default.includePath": ["${workspaceFolder}/include"],
+  "github.copilot.enable": {
+    "*": true,
+    "markdown": true,
+    "plaintext": false
+  }
+}

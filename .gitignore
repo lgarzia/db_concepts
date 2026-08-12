@@ -1,0 +1,48 @@
+# Compiled C artifacts
+*.o
+*.obj
+*.gch
+*.pch
+*.a
+*.lib
+*.so
+*.dylib
+*.dll
+*.exe
+*.out
+
+# Build output
+build/
+bin/
+obj/
+Debug/
+Release/
+
+# Dependency files
+*.d
+.deps/
+
+# Agent runtime and working state
+.agent/
+*.log
+*.tmp
+*.swp
+*.swo
+*~
+
+# IDE / editor noise
+.idea/
+*.user
+*.sublime-workspace
+*.sublime-project
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Tags and cscope
+tags
+cscope.*
+
+# Keep project editor config tracked
+# Do NOT ignore .vscode/
