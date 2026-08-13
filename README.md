@@ -20,6 +20,22 @@ make run
 make test
 ```
 
+## CLI commands
+
+The application reads one command per line:
+
+```text
+read hello
+hello
+write hello world
+hello world
+quit
+```
+
+`read <string>` and `write <string>` echo their string argument. Enter `quit`
+to end the session. End-of-file also exits successfully when input is piped or
+closed.
+
 ## Project layout
 
 ```text
@@ -45,11 +61,14 @@ make test
 │   ├── adr/
 │   └── specs/
 ├── include/
+│   ├── cli.h
 │   └── hello.h
 ├── src/
+│   ├── cli.c
 │   ├── hello.c
 │   └── main.c
 ├── tests/
+│   ├── test_cli.c
 │   └── test_hello.c
 ├── Makefile
 ├── .gitignore

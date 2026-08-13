@@ -40,6 +40,13 @@ This repository is designed for GitHub Copilot and VS Code workflows. The goal i
 - Updates docs when architecture, interfaces, or usage change.
 - Keeps ADRs and specs brief and practical.
 
+### Feature-spec agent
+
+- Creates or updates feature specifications under `docs/specs/`.
+- Includes requirements, acceptance criteria, test plans, and implementation plans.
+- Works in planning mode by default and does not implement code unless explicitly requested.
+- Uses ADRs for significant architectural decisions and keeps durable repository facts in memory.
+
 ## Good prompts
 
 - "Explain the current C project structure and build workflow."
