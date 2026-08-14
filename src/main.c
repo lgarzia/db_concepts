@@ -1,6 +1,7 @@
 #include <stdio.h>
 
 #include "cli.h"
+#include "concepts.h"
 
 #define CLI_INPUT_CAPACITY 512
 
@@ -56,6 +57,12 @@ int main(void)
         if (result.type == CLI_COMMAND_QUIT)
         {
             break;
+        }
+
+        if (result.type == CLI_COMMAND_CONCEPTS)
+        {
+            concepts_demonstrate();
+            continue;
         }
 
         if (result.type == CLI_COMMAND_READ ||

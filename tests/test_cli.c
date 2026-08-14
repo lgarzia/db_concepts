@@ -27,6 +27,14 @@ static void test_quit_command(void)
     assert(result.argument[0] == '\0');
 }
 
+static void test_concepts_command(void)
+{
+    cli_command_result result = cli_parse_line("concepts");
+
+    assert(result.type == CLI_COMMAND_CONCEPTS);
+    assert(result.argument[0] == '\0');
+}
+
 static void test_invalid_commands(void)
 {
     assert(cli_parse_line("").type == CLI_COMMAND_INVALID);
@@ -59,6 +67,7 @@ int main(void)
     test_read_command();
     test_write_command_preserves_spaces();
     test_quit_command();
+    test_concepts_command();
     test_invalid_commands();
     test_argument_boundary();
     return 0;

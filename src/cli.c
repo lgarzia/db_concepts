@@ -75,6 +75,12 @@ cli_command_result cli_parse_line(const char *line)
         return result;
     }
 
+    if (line_length == strlen("concepts") && strncmp(line, "concepts", line_length) == 0)
+    {
+        result.type = CLI_COMMAND_CONCEPTS;
+        return result;
+    }
+
     if (starts_with_command(line, line_length, "read"))
     {
         result.type = CLI_COMMAND_READ;
