@@ -17,6 +17,7 @@ This repository is designed for GitHub Copilot and VS Code workflows. The goal i
 4. Update or add tests when behavior changes.
 5. Run `make test` and confirm the output.
 6. Document any design decision that affects architecture or behavior.
+7. For `docs/specs/db-learning-roadmap.md` steps, branch and merge per `.github/instructions/git-workflow.instructions.md`.
 
 ## Agent roles
 
