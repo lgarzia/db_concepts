@@ -13,7 +13,8 @@ typedef enum
     CLI_COMMAND_INVALID,
     CLI_COMMAND_READ,
     CLI_COMMAND_WRITE,
-    CLI_COMMAND_QUIT
+    CLI_COMMAND_QUIT,
+    CLI_COMMAND_CONCEPTS
 } cli_command_type;
 
 typedef struct
