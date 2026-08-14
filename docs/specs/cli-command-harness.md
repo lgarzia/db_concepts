@@ -132,6 +132,7 @@ The command names establish a future vocabulary for database work while keeping 
 ## References
 
 - `docs/specs/README.md`
+- `docs/specs/db-learning-roadmap.md`
 - `include/hello.h`
 - `src/main.c`
 - `tests/test_hello.c`
