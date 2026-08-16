@@ -17,5 +17,13 @@
     "*": true,
     "markdown": true,
     "plaintext": false
-  }
+  },
+  "makefile.configureOnOpen": false,
+  "chat.agentSkillsLocations": {
+    "~/.claude/skills": false,
+    "~/.copilot/skills": false,
+    ".claude/skills": false,
+    "~/.agents/skills": false
+  },
+  "chat.mcp.access": "registry"
 }

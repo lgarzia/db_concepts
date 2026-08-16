@@ -6,7 +6,7 @@ Use this skill to create or maintain concise, reviewable feature specifications 
 
 ## Workflow
 
-1. Inspect the relevant repository files and existing documentation.
+1. Inspect only the target roadmap step from db-learning-roadmap.md and any directly related source or header files. Do not scan unrelated historical specifications in docs/specs/.
 2. Define the problem, intended users, goal, scope, and non-goals.
 3. Separate required behavior from implementation choices.
 4. Identify affected modules, public interfaces, tests, build targets, and documentation.
@@ -14,30 +14,12 @@ Use this skill to create or maintain concise, reviewable feature specifications 
 6. Draft a test plan covering normal behavior, relevant boundaries or errors, and the project validation command.
 7. Draft an implementation plan in dependency order, naming likely files and interfaces.
 8. Record risks, dependencies, assumptions, open questions, and related ADRs.
-9. Check that the spec is internally consistent and fits the repository conventions.
+9. **Read the template located at `.github/skills/feature-spec-planning/templates/spec-template.md`.**
+10. **Format your final feature specification output to strictly match the structure, headings, and style of that template.**
+11. Check that the spec is internally consistent and fits the repository conventions.
 
-## Granularity rules
+## Output location and naming
 
-- Prefer one spec per independently discussable or deliverable feature.
-- Do not create one spec per function, struct, or source file.
-- Keep test and implementation plans in the feature spec by default.
-- Split plans into separate documents only when they are independently owned, reviewed, or complex.
-
-## Boundaries
-
-- This skill produces planning documents; it does not implement the feature.
-- Use an ADR for the reasoning behind a significant architectural decision.
-- Use instructions for rules that apply repeatedly across tasks.
-- Use memory for stable repository facts and lessons, not active task plans.
-- Keep temporary session notes out of the durable spec unless they become a project decision.
-
-## Validation checklist
-
-- The goal and intended outcome are clear.
-- Scope and non-goals prevent uncontrolled expansion.
-- Requirements describe observable behavior.
-- Acceptance criteria can be checked by a reviewer or test.
-- The test plan covers the acceptance criteria.
-- The implementation plan names likely affected surfaces and preserves public API boundaries.
-- Risks, dependencies, assumptions, and open questions are explicit.
-- The document identifies related ADRs or states that none are needed.
+- **Target Directory:** All generated or updated feature specifications must be saved strictly inside the `docs/specs/` folder.
+- **File Naming Convention:** Name files using the roadmap pattern matching the step number: `db-step-<NN>-<slug>.md` (e.g., `db-step-03-hash-table.md`).
+- **File Creation:** Use the workspace file-writing tool to save the spec directly to disk at `docs/specs/<filename>.md` rather than just printing the markdown text in the chat window.

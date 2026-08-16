@@ -62,3 +62,15 @@ This repository is a small but professional C project optimized for GitHub Copil
 ## Agent memory
 
 This project uses memory files to preserve knowledge. Keep repo-level notes under `/memories/repo/` and session notes under `/memories/session/` when used by Copilot.
+
+## Subagent Delegation Rules
+
+- When asked to analyze repository structure, `.vscode`, `.github`, or configuration setups, DO NOT run multiple directory listing or file reading tools in the main thread.
+- Always delegate mapping tasks by invoking the `@Explore` subagent or running an isolated subagent task.
+- Accept only the summarized response back into the active context window.
+
+## Context Management Rules
+
+- Do NOT request the user to paste full file contents into the chat window.
+- Always ask the user to reference files using `#file:` or attached context.
+- When inspecting code, request specific line ranges, methods, or functions rather than full-file reads.
