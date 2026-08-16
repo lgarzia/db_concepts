@@ -1,3 +1,9 @@
+---
+applyTo: 
+ - **/*.c
+ - **/*.h
+---
+
 # C coding instructions
 
 Apply these rules to all C files in this repository.
