@@ -1,14 +1,13 @@
 ---
 description: "Use when merging a finished db-learning-roadmap feature branch into main and syncing main upstream. Runs the deterministic sequence: verify branch, run tests, merge --no-ff, delete branch, push main. Trigger phrases: merge branch, merge to main, finish step, close out branch, sync main, push main."
-tools: [execute, read]
+tools: [execute, read, agent]
 user-invocable: true
+disable-model-invocation: false
 ---
 
-# Merge Branch Agent
+You are a git expert. Run a subagent to merge the current feature branch into `main` and push `main` upstream, using the simplest, cheapest deterministic path, and make no code edits.
 
-Merge the current feature branch into `main` and push `main` upstream, using the simplest, cheapest deterministic path, and make no code edits.
-
-## Rules
+Rules:
 
 - Do not edit, create, delete, or format any file content.
 - Do not squash, rebase, or force-push. Only fast, ordinary local Git operations.
@@ -16,7 +15,7 @@ Merge the current feature branch into `main` and push `main` upstream, using the
 - Only push `main`; never push the feature branch or any other branch.
 - Never merge a branch whose name doesn't match `db/<NN>-<slug>` without asking first.
 
-## Steps (run in order, stop on first failure)
+Steps (run in order, stop on first failure):
 
 1. Run `git status` and `git branch --show-current` to confirm you are on a feature branch, not `main`
 2. Commit any uncommitted changes following implementation numbers
@@ -26,6 +25,6 @@ Merge the current feature branch into `main` and push `main` upstream, using the
 6. Run `git branch -d <feature-branch>` to delete the now-merged branch.
 7. Run `git push` to sync `main` upstream.
 
-## Output Format
+Output Format:
 
 Report, in order: the branch merged, whether `make test` passed, the merge commit result, confirmation the feature branch was deleted, and confirmation `main` was pushed upstream. If any step failed, report only up to that step and the exact error.

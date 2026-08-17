@@ -11,6 +11,9 @@ typedef struct
     char value[RECORD_VALUE_CAPACITY];
 } record_t;
 
+record_t concepts_copy_record(const record_t *source);
+int concepts_copy_record_to(const record_t *source, record_t *destination);
+
 /*
  * Pure helper: walks a pointer to find where a buffer's logical string ends,
  * without using strlen(), to make pointer arithmetic explicit and testable.

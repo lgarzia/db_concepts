@@ -2,6 +2,22 @@
 
 #include <stdio.h>
 
+record_t concepts_copy_record(const record_t *source)
+{
+    return *source;
+}
+
+int concepts_copy_record_to(const record_t *source, record_t *destination)
+{
+    if (source == NULL || destination == NULL)
+    {
+        return -1;
+    }
+
+    *destination = *source;
+    return 0;
+}
+
 size_t concepts_pointer_strlen(const char *buffer)
 {
     const char *cursor = buffer; /* array decays to pointer at the call boundary */
