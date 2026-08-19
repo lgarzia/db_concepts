@@ -19,6 +19,15 @@ static void test_write_command_preserves_spaces(void)
     assert(strcmp(result.argument, "hello   world") == 0);
 }
 
+static void test_const_input_buffer(void)
+{
+    const char line[] = "read immutable input";
+    cli_command_result result = cli_parse_line(line);
+
+    assert(result.type == CLI_COMMAND_READ);
+    assert(strcmp(result.argument, "immutable input") == 0);
+}
+
 static void test_quit_command(void)
 {
     cli_command_result result = cli_parse_line("quit");
@@ -66,6 +75,7 @@ int main(void)
 {
     test_read_command();
     test_write_command_preserves_spaces();
+    test_const_input_buffer();
     test_quit_command();
     test_concepts_command();
     test_invalid_commands();
