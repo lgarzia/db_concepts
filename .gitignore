@@ -47,3 +47,4 @@ cscope.*
 # Keep project editor config tracked
 # Do NOT ignore .vscode/
 hidden_notes.txt
+.github/hooks/hook_notes.txt
