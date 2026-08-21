@@ -23,3 +23,10 @@ Use this skill to create or maintain concise, reviewable feature specifications 
 - **Target Directory:** All generated or updated feature specifications must be saved strictly inside the `docs/specs/` folder.
 - **File Naming Convention:** Name files using the roadmap pattern matching the step number: `db-step-<NN>-<slug>.md` (e.g., `db-step-03-hash-table.md`).
 - **File Creation:** Use the workspace file-writing tool to save the spec directly to disk at `docs/specs/<filename>.md` rather than just printing the markdown text in the chat window.
+
+## Validation boundary
+
+This skill is planning-only. Validate the specification’s structure, scope,
+and internal consistency, but do not run build, test, lint, or application
+commands unless the user explicitly requests execution or the task also
+includes implementation changes.
