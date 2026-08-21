@@ -32,7 +32,7 @@
 
 1. [Test normal behavior.]
 2. [Test relevant boundary or error behavior.]
-3. [Run the project validation command, such as `make test`.]
+3. [Run the project validation command, such as `make test` but those commands are not run while creating the spec.]
 
 ## Implementation plan
 

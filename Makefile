@@ -13,6 +13,7 @@ TARGET := $(BIN_DIR)/hello$(EXE)
 TEST_TARGET := $(BIN_DIR)/test_hello$(EXE)
 CLI_TEST_TARGET := $(BIN_DIR)/test_cli$(EXE)
 CONCEPTS_TEST_TARGET := $(BIN_DIR)/test_concepts$(EXE)
+TABLE_TEST_TARGET := $(BIN_DIR)/test_table$(EXE)
 
 all: $(TARGET)
 
@@ -20,10 +21,11 @@ $(TARGET): src/hello.c src/cli.c src/concepts.c src/main.c
 	@mkdir -p $(BIN_DIR)
 	$(CC) $(CPPFLAGS) $(CFLAGS) $^ -o $@
 
-test: $(TARGET) $(TEST_TARGET) $(CLI_TEST_TARGET) $(CONCEPTS_TEST_TARGET)
+test: $(TARGET) $(TEST_TARGET) $(CLI_TEST_TARGET) $(CONCEPTS_TEST_TARGET) $(TABLE_TEST_TARGET)
 	./$(TEST_TARGET)
 	./$(CLI_TEST_TARGET)
 	./$(CONCEPTS_TEST_TARGET)
+	./$(TABLE_TEST_TARGET)
 
 run: $(TARGET)
 	./$(TARGET)
@@ -37,6 +39,10 @@ $(CLI_TEST_TARGET): src/cli.c tests/test_cli.c
 	$(CC) $(CPPFLAGS) $(CFLAGS) $^ -o $@
 
 $(CONCEPTS_TEST_TARGET): src/concepts.c tests/test_concepts.c
+	@mkdir -p $(BIN_DIR)
+	$(CC) $(CPPFLAGS) $(CFLAGS) $^ -o $@
+
+$(TABLE_TEST_TARGET): src/table.c tests/test_table.c
 	@mkdir -p $(BIN_DIR)
 	$(CC) $(CPPFLAGS) $(CFLAGS) $^ -o $@
 
