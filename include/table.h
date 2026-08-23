@@ -19,5 +19,6 @@ typedef struct
 } table;
 
 void table_init(table *table);
+void table_insert(table *table, table_record record);
 
 #endif
