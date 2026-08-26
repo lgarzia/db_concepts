@@ -20,5 +20,6 @@ typedef struct
 
 void table_init(table *table);
 void table_insert(table *table, table_record record);
+int table_find_by_id(const table *table, int id, table_record *record);
 
 #endif
