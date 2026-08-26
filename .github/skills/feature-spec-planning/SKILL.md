@@ -1,3 +1,8 @@
+---
+name: feature-spec-planning
+description: Create or maintain concise, reviewable feature specifications.
+---
+
 # Feature spec planning skill
 
 ## Purpose

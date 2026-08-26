@@ -1,3 +1,8 @@
+---
+name: webapp-testing
+description: Template for future webapp test automation patterns and extension points.
+---
+
 # Webapp testing skill
 
 This project is a C starter, so this skill serves as a template for future test automation patterns and extension points.

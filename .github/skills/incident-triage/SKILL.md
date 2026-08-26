@@ -1,3 +1,8 @@
+---
+name: incident-triage
+description: Investigate and resolve project issues efficiently.
+---
+
 # Incident triage skill
 
 ## Purpose
