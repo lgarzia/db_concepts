@@ -133,6 +133,40 @@ static void test_table_finds_first_duplicate_id(void)
     assert(found.id == 7);
     assert(strcmp(found.value, "first") == 0);
 }
+
+static void test_table_deletes_id_by_swapping_with_last(void)
+{
+    table table;
+    table_record first = {1, "first"};
+    table_record second = {2, "second"};
+    table_record third = {3, "third"};
+
+    table_init(&table);
+    table_insert(&table, first);
+    table_insert(&table, second);
+    table_insert(&table, third);
+
+    assert(table_delete_by_id(&table, second.id) != 0);
+    assert(table.count == 2);
+    assert(table.records[0].id == first.id);
+    assert(table.records[1].id == third.id);
+    assert(strcmp(table.records[1].value, "third") == 0);
+}
+
+static void test_table_does_not_delete_missing_id(void)
+{
+    table table;
+    table_record record = {1, "stored"};
+
+    table_init(&table);
+    table_insert(&table, record);
+
+    assert(table_delete_by_id(&table, 2) == 0);
+    assert(table.count == 1);
+    assert(table.records[0].id == record.id);
+    assert(strcmp(table.records[0].value, record.value) == 0);
+}
+
 int main(void)
 {
     test_table_initializes_empty();
@@ -142,5 +176,7 @@ int main(void)
     test_table_reports_not_found_for_missing_id();
     test_table_reports_not_found_when_empty();
     test_table_finds_first_duplicate_id();
+    test_table_deletes_id_by_swapping_with_last();
+    test_table_does_not_delete_missing_id();
     return 0;
 }

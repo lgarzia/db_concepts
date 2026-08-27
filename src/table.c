@@ -36,3 +36,25 @@ int table_find_by_id(const table *table, int id, table_record *record)
 
     return 0;
 }
+
+int table_delete_by_id(table *table, int id)
+{
+    size_t index;
+
+    if (table == NULL)
+    {
+        return 0;
+    }
+
+    for (index = 0; index < table->count; index++)
+    {
+        if (table->records[index].id == id)
+        {
+            table->count--;
+            table->records[index] = table->records[table->count];
+            return 1;
+        }
+    }
+
+    return 0;
+}
