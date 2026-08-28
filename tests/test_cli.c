@@ -26,6 +26,7 @@ static void test_const_input_buffer(void)
 
     assert(result.type == CLI_COMMAND_READ);
     assert(strcmp(result.argument, "immutable input") == 0);
+    assert(strcmp(line, "read immutable input") == 0);
 }
 
 static void test_quit_command(void)

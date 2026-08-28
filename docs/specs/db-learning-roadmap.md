@@ -15,7 +15,7 @@ Related: [cli-command-harness.md](cli-command-harness.md)
 7. Implement linear insert into that array.
 8. Implement linear scan/find by id.
 9. Implement delete-by-id (swap-with-last or tombstone).
-10. Write unit tests for insert/find/delete.
+10. Write unit tests for
 
 ## Phase 2 — Wire records into the CLI (11–20)
 
