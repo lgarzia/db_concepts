@@ -19,6 +19,26 @@ static void test_write_command_preserves_spaces(void)
     assert(strcmp(result.argument, "hello   world") == 0);
 }
 
+static void test_insert_command_parses_id_and_value(void)
+{
+    cli_command_result result = cli_parse_line("insert 42 example");
+
+    /* A valid insert exposes its parsed ID and copied value to the caller. */
+    assert(result.type == CLI_COMMAND_INSERT);
+    assert(result.id == 42);
+    assert(strcmp(result.value, "example") == 0);
+}
+
+static void test_insert_command_preserves_signed_id_and_spaces(void)
+{
+    cli_command_result result = cli_parse_line("insert -1 value with spaces\r\n");
+
+    /* Signed IDs and internal value whitespace must survive CRLF parsing. */
+    assert(result.type == CLI_COMMAND_INSERT);
+    assert(result.id == -1);
+    assert(strcmp(result.value, "value with spaces") == 0);
+}
+
 static void test_const_input_buffer(void)
 {
     const char line[] = "read immutable input";
@@ -76,6 +96,8 @@ int main(void)
 {
     test_read_command();
     test_write_command_preserves_spaces();
+    test_insert_command_parses_id_and_value();
+    test_insert_command_preserves_signed_id_and_spaces();
     test_const_input_buffer();
     test_quit_command();
     test_concepts_command();

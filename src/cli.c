@@ -1,11 +1,73 @@
 #include "cli.h"
 
+#include <errno.h>
+#include <limits.h>
 #include <stddef.h>
+#include <stdlib.h>
 #include <string.h>
 
 static cli_command_result invalid_result(void)
 {
-    cli_command_result result = {CLI_COMMAND_INVALID, ""};
+    cli_command_result result = {CLI_COMMAND_INVALID, "", 0, ""};
+    return result;
+}
+
+static cli_command_result parse_insert(const char *argument, size_t argument_length)
+{
+    cli_command_result result = invalid_result();
+    const char *id_start = argument;
+    const char *id_end = argument;
+    const char *value_start;
+    char id_buffer[32];
+    size_t id_length;
+    size_t value_length;
+    long parsed_id;
+    char *endptr;
+
+    while ((size_t)(id_end - argument) < argument_length &&
+           *id_end != ' ' && *id_end != '\t')
+    {
+        id_end++;
+    }
+
+    id_length = (size_t)(id_end - id_start);
+
+    /* The ID must be followed by a separator so a value can still be present. */
+    if (id_length == 0 || id_length >= sizeof(id_buffer) ||
+        (size_t)(id_end - argument) >= argument_length)
+    {
+        return result;
+    }
+
+    memcpy(id_buffer, id_start, id_length);
+    id_buffer[id_length] = '\0';
+
+    errno = 0;
+    parsed_id = strtol(id_buffer, &endptr, 10);
+    if (endptr == id_buffer || *endptr != '\0' || errno == ERANGE ||
+        parsed_id < INT_MIN || parsed_id > INT_MAX)
+    {
+        return result;
+    }
+
+    value_start = id_end;
+    while ((size_t)(value_start - argument) < argument_length &&
+           (*value_start == ' ' || *value_start == '\t'))
+    {
+        value_start++;
+    }
+
+    value_length = argument_length - (size_t)(value_start - argument);
+    if (value_length == 0 || value_length >= TABLE_VALUE_CAPACITY)
+    {
+        return result;
+    }
+
+    result.type = CLI_COMMAND_INSERT;
+    result.id = (int)parsed_id;
+    memcpy(result.value, value_start, value_length);
+    result.value[value_length] = '\0';
+
     return result;
 }
 
@@ -79,6 +141,18 @@ cli_command_result cli_parse_line(const char *line)
     {
         result.type = CLI_COMMAND_CONCEPTS;
         return result;
+    }
+
+    if (starts_with_command(line, line_length, "insert"))
+    {
+        argument = line + strlen("insert");
+        while ((size_t)(argument - line) < line_length &&
+               (*argument == ' ' || *argument == '\t'))
+        {
+            argument++;
+        }
+
+        return parse_insert(argument, line_length - (size_t)(argument - line));
     }
 
     if (starts_with_command(line, line_length, "read"))

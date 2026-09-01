@@ -3,6 +3,7 @@ name: Write Red Test
 description: "Add exactly one focused failing (red) test for a db-learning-roadmap step spec, then stop. Does not implement production code. Trigger phrases: write red test, add failing test, red test for step N."
 tools:
   - read
+  - edit
   - execute
 user-invocable: true
 disable-model-invocation: false

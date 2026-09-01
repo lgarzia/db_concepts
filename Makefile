@@ -17,7 +17,7 @@ TABLE_TEST_TARGET := $(BIN_DIR)/test_table$(EXE)
 
 all: $(TARGET)
 
-$(TARGET): src/hello.c src/cli.c src/concepts.c src/main.c
+$(TARGET): src/hello.c src/cli.c src/concepts.c src/table.c src/main.c
 	@mkdir -p $(BIN_DIR)
 	$(CC) $(CPPFLAGS) $(CFLAGS) $^ -o $@
 

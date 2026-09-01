@@ -1,3 +1,12 @@
+---
+name: Code Review
+description: Review C code for clarity, safety, and maintainability. Read-only; makes no edits.
+tools:
+  - read
+user-invocable: true
+disable-model-invocation: false
+---
+
 # Code review agent
 
 ## Purpose

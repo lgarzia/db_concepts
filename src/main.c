@@ -1,7 +1,9 @@
 #include <stdio.h>
+#include <string.h>
 
 #include "cli.h"
 #include "concepts.h"
+#include "table.h"
 
 #define CLI_INPUT_CAPACITY 512
 
@@ -24,6 +26,9 @@ static int line_is_complete(const char *line)
 int main(void)
 {
     char line[CLI_INPUT_CAPACITY];
+    table records;
+
+    table_init(&records);
 
     /*
      * fgets() reads at most one less than the buffer capacity and always
@@ -72,8 +77,26 @@ int main(void)
             continue;
         }
 
+        if (result.type == CLI_COMMAND_INSERT)
+        {
+            table_record record;
+
+            record.id = result.id;
+            strcpy(record.value, result.value);
+
+            if (table_insert(&records, record))
+            {
+                printf("Inserted record %d.\n", result.id);
+            }
+            else
+            {
+                fprintf(stderr, "Failed to insert record %d: table is full.\n", result.id);
+            }
+            continue;
+        }
+
         fprintf(stderr,
-                "Invalid command. Usage: read <string>, write <string>, or quit.\n");
+                "Invalid command. Usage: read <string>, write <string>, insert <id> <value>, or quit.\n");
     }
 
     return 0;

@@ -1,11 +1,11 @@
 ---
 description: "Use when merging a finished db-learning-roadmap feature branch into main and syncing main upstream. Runs the deterministic sequence: verify branch, run tests, merge --no-ff, delete branch, push main. Trigger phrases: merge branch, merge to main, finish step, close out branch, sync main, push main."
-tools: [execute, read, agent]
+tools: [execute, read]
 user-invocable: true
 disable-model-invocation: false
 ---
 
-You are a git expert. Run a subagent to merge the current feature branch into `main` and push `main` upstream, using the simplest, cheapest deterministic path, and make no code edits.
+You are a git expert running as a subagent. Merge the current feature branch into `main` and push `main` upstream, using the simplest, cheapest deterministic path, and make no code edits.
 
 Rules:
 
@@ -15,10 +15,12 @@ Rules:
 - Only push `main`; never push the feature branch or any other branch.
 - Never merge a branch whose name doesn't match `db/<NN>-<slug>` without asking first.
 
+Before merging, read `.github/instructions/git-workflow.instructions.md` to validate the current feature branch name against the `db/<NN>-<slug>` convention.
+
 Steps (run in order, stop on first failure):
 
 1. Run `git status` and `git branch --show-current` to confirm you are on a feature branch, not `main`
-2. Commit any uncommitted changes following implementation numbers
+2. Commit any outstanding changes using a conventional commit message describing the completed roadmap step
 3. Run `make test`. If it fails, stop and report the failure — do not merge.
 4. Run `git checkout main` then `git pull`.
 5. Run `git merge --no-ff <feature-branch>` using the branch name captured in step 1.
