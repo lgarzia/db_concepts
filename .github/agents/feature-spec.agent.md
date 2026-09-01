@@ -1,3 +1,13 @@
+---
+name: Feature Specification Agent
+description: Create or update feature specifications for db-learning-roadmap steps. Planning-only; does not modify source, tests, or build files.
+tools:
+  - read
+  - edit
+user-invocable: true
+disable-model-invocation: false
+---
+
 # Feature Specification Agent
 
 ## Purpose

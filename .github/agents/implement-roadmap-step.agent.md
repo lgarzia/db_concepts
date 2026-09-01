@@ -3,6 +3,7 @@ name: Implement Roadmap Step
 description: "Implement exactly one red-tested db-learning-roadmap step and make the test suite pass. Does not branch, merge, or push."
 tools:
   - read
+  - edit
   - execute
 user-invocable: true
 disable-model-invocation: false

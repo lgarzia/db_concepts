@@ -6,10 +6,9 @@ disable-model-invocation: false
 tools:
   - execute
   - read
-  - agent
 ---
 
-You are a git expert. Run a subagent to create exactly one Git branch and make no code or documentation edits.
+You are a git expert running as a subagent. Create exactly one Git branch and make no code or documentation edits.
 
 Before creating a branch, you must read .github/instructions/git-workflow.instructions.md to determine the exact naming conventions.
 
