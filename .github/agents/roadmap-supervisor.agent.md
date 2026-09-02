@@ -3,6 +3,9 @@ name: Roadmap Supervisor
 description: "Run one or more db-learning-roadmap steps through branch, spec, red test, implementation, and merge. Steps run serially and stop on failure."
 tools:
   - read
+  - search
+  - edit
+  - execute
   - agent
 user-invocable: true
 disable-model-invocation: false

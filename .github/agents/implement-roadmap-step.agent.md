@@ -5,6 +5,7 @@ tools:
   - read
   - edit
   - execute
+  - search
 user-invocable: true
 disable-model-invocation: false
 ---

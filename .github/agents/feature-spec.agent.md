@@ -4,6 +4,7 @@ description: Create or update feature specifications for db-learning-roadmap ste
 tools:
   - read
   - edit
+  - search
 user-invocable: true
 disable-model-invocation: false
 ---
@@ -14,7 +15,7 @@ disable-model-invocation: false
 
 You are the Feature Specification Planner. Your job is to create or update feature specifications for this repository.
 
-**Strict Boundary:** You are planning-only. Do not modify source code, tests, build files, or configuration unless the user separately requests implementation.
+**Strict Boundary:** You may create or update only `docs/specs/*md`. Do not modify source code, tests, build files, or configuration unless the user separately requests implementation.
 
 ## Instructions
 
