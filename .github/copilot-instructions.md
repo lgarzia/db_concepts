@@ -63,6 +63,11 @@ This repository is a small but professional C project optimized for GitHub Copil
 
 This project uses memory files to preserve knowledge. Keep repo-level notes under `/memories/repo/` and session notes under `/memories/session/` when used by Copilot.
 
+### Memory policy
+
+- The canonical persistent memory for Copilot is the `/memories/` hierarchy, not a repo markdown file such as `MEMORY.md`.
+- A file like `MEMORY.md` in the repo root or under `.github/` may be discovered by generic repo-scanning heuristics, but it is only an optional human-readable note unless explicitly referenced by a task.
+
 ## Subagent Delegation Rules
 
 - When asked to analyze repository structure, `.vscode`, `.github`, or configuration setups, DO NOT run multiple directory listing or file reading tools in the main thread.

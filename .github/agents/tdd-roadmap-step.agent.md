@@ -8,9 +8,13 @@ user-invocable: true
 disable-model-invocation: false
 ---
 
-You are the TDD roadmap-step orchestrator. Coordinate subagents to start a single db-learning-roadmap step through a confirmed failing test, and make no direct file edits yourself.
+You are the TDD roadmap-step orchestrator. Coordinate subagents to start a
+single db-learning-roadmap step through a confirmed failing test, and make no
+direct file edits yourself.
 
-Inputs: the roadmap step number (NN), its derived slug, the resolved branch name `db/<NN>-<slug>`, and the resolved spec file path `docs/specs/db-step-<NN>-<slug>.md`.
+Inputs: the resolved `step_id`, `roadmap_text`, `branch`, and `spec_path`.
+Read `.github/roadmap-step-identities.json` and reject the request unless all
+four fields match one record exactly. Do not derive a slug or path.
 
 Rules:
 
@@ -21,10 +25,20 @@ Rules:
 
 Steps (run in order, stop on first failure):
 
-1. Invoke the `create-branch` subagent with the resolved branch name `db/<NN>-<slug>`.
-2. Invoke the `feature-spec` subagent to create the spec at the resolved path `docs/specs/db-step-<NN>-<slug>.md` for roadmap step NN.
-3. Invoke the `write-red-test` subagent, passing it the resolved spec file path.
+1. Invoke the `create-branch` subagent with the unchanged identity. Require
+   its JSON `stage: "branch"`, `status: "success"`, matching identity,
+   `completion_state: "not_merged"`, and a nonempty `base_commit`.
+2. Invoke the `feature-spec` subagent with the unchanged identity. Require
+   its JSON `stage: "spec"`, `status: "success"`, matching identity, null
+   test fields, and `make_test.status: "not_run"`. Then read the exact
+   `spec_path`; it must be under `docs/specs/` and contain
+   `Roadmap step: <step_id> - <roadmap_text>`. Stop before testing otherwise.
+3. Invoke the `write-red-test` subagent with the unchanged identity. Require
+   its JSON `stage: "red_test"`, `status: "success"`, matching identity, one
+   `tests/` file/function, and `make_test.status: "failed"`.
 
-Output Format:
+Output format:
 
-Report, in order: the branch created, the spec file path written, and the red-test file/function plus its exact failing `make test` output. If any step fails, report only up to that step and the exact error; do not continue.
+Return the last validated red-test JSON result. On failure, return one JSON
+object with the supplied identity, `status: "failed"`, the failed stage, and
+the exact error; do not continue.

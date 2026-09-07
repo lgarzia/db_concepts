@@ -1,0 +1,494 @@
+{
+  "version": 1,
+  "roadmap_path": "docs/specs/db-learning-roadmap.md",
+  "steps": [
+    {
+      "id": 1,
+      "text": "Review pointers vs. arrays vs. buffers in `cli.c`.",
+      "slug": "review-pointers-arrays-buffers",
+      "branch": "db/01-review-pointers-arrays-buffers",
+      "spec_path": "docs/specs/db-step-01-review-pointers-arrays-buffers.md",
+      "legacy_merged_branches": []
+    },
+    {
+      "id": 2,
+      "text": "Add a `struct` to model one record (e.g., id + string value).",
+      "slug": "add-record-struct",
+      "branch": "db/02-add-record-struct",
+      "spec_path": "docs/specs/db-step-02-add-record-struct.md",
+      "legacy_merged_branches": [
+        "db/02-record-struct"
+      ]
+    },
+    {
+      "id": 3,
+      "text": "Practice manual struct initialization and `sizeof`.",
+      "slug": "practice-struct-init-sizeof",
+      "branch": "db/03-practice-struct-init-sizeof",
+      "spec_path": "docs/specs/db-step-03-practice-struct-init-sizeof.md",
+      "legacy_merged_branches": [
+        "db/03-manual-struct-init-sizeof"
+      ]
+    },
+    {
+      "id": 4,
+      "text": "Write a function that copies a struct by value vs. by pointer.",
+      "slug": "copy-struct-value-pointer",
+      "branch": "db/04-copy-struct-value-pointer",
+      "spec_path": "docs/specs/db-step-04-copy-struct-value-pointer.md",
+      "legacy_merged_branches": [
+        "db/04-struct-copy"
+      ]
+    },
+    {
+      "id": 5,
+      "text": "Add `const`-correctness pass across `cli.h`/`cli.c`.",
+      "slug": "add-const-correctness-cli",
+      "branch": "db/05-add-const-correctness-cli",
+      "spec_path": "docs/specs/db-step-05-add-const-correctness-cli.md",
+      "legacy_merged_branches": [
+        "db/05-const-correctness-cli"
+      ]
+    },
+    {
+      "id": 6,
+      "text": "Introduce a simple fixed-size array \"table\" of records in memory.",
+      "slug": "fixed-size-array-table",
+      "branch": "db/06-fixed-size-array-table",
+      "spec_path": "docs/specs/db-step-06-fixed-size-array-table.md",
+      "legacy_merged_branches": []
+    },
+    {
+      "id": 7,
+      "text": "Implement linear insert into that array.",
+      "slug": "linear-insert-array",
+      "branch": "db/07-linear-insert-array",
+      "spec_path": "docs/specs/db-step-07-linear-insert-array.md",
+      "legacy_merged_branches": []
+    },
+    {
+      "id": 8,
+      "text": "Implement linear scan/find by id.",
+      "slug": "linear-scan-find-by-id",
+      "branch": "db/08-linear-scan-find-by-id",
+      "spec_path": "docs/specs/db-step-08-linear-scan-find-by-id.md",
+      "legacy_merged_branches": []
+    },
+    {
+      "id": 9,
+      "text": "Implement delete-by-id (swap-with-last or tombstone).",
+      "slug": "delete-by-id",
+      "branch": "db/09-delete-by-id",
+      "spec_path": "docs/specs/db-step-09-delete-by-id.md",
+      "legacy_merged_branches": []
+    },
+    {
+      "id": 10,
+      "text": "Write unit tests for insert/find/delete.",
+      "slug": "unit-tests-insert-find-delete",
+      "branch": "db/10-unit-tests-insert-find-delete",
+      "spec_path": "docs/specs/db-step-10-unit-tests-insert-find-delete.md",
+      "legacy_merged_branches": []
+    },
+    {
+      "id": 11,
+      "text": "Add `insert <id> <value>` command.",
+      "slug": "insert-id-value-command",
+      "branch": "db/11-insert-id-value-command",
+      "spec_path": "docs/specs/db-step-11-insert-id-value-command.md",
+      "legacy_merged_branches": []
+    },
+    {
+      "id": 12,
+      "text": "Add `get <id>` command.",
+      "slug": "get-id-command",
+      "branch": "db/12-get-id-command",
+      "spec_path": "docs/specs/db-step-12-get-id-command.md",
+      "legacy_merged_branches": []
+    },
+    {
+      "id": 13,
+      "text": "Add `delete <id>` command.",
+      "slug": "delete-id-command",
+      "branch": "db/13-delete-id-command",
+      "spec_path": "docs/specs/db-step-13-delete-id-command.md",
+      "legacy_merged_branches": []
+    },
+    {
+      "id": 14,
+      "text": "Add `list` command to dump all records.",
+      "slug": "list-all-records",
+      "branch": "db/14-list-all-records",
+      "spec_path": "docs/specs/db-step-14-list-all-records.md",
+      "legacy_merged_branches": []
+    },
+    {
+      "id": 15,
+      "text": "Handle duplicate id on insert (reject or update).",
+      "slug": "handle-duplicate-id-insert",
+      "branch": "db/15-handle-duplicate-id-insert",
+      "spec_path": "docs/specs/db-step-15-handle-duplicate-id-insert.md",
+      "legacy_merged_branches": []
+    },
+    {
+      "id": 16,
+      "text": "Handle get/delete on missing id (clear error).",
+      "slug": "handle-missing-get-delete",
+      "branch": "db/16-handle-missing-get-delete",
+      "spec_path": "docs/specs/db-step-16-handle-missing-get-delete.md",
+      "legacy_merged_branches": []
+    },
+    {
+      "id": 17,
+      "text": "Cap table size and handle \"table full\" explicitly.",
+      "slug": "cap-table-handle-full",
+      "branch": "db/17-cap-table-handle-full",
+      "spec_path": "docs/specs/db-step-17-cap-table-handle-full.md",
+      "legacy_merged_branches": []
+    },
+    {
+      "id": 18,
+      "text": "Extract table logic into `include/table.h` / `src/table.c`.",
+      "slug": "extract-table-module",
+      "branch": "db/18-extract-table-module",
+      "spec_path": "docs/specs/db-step-18-extract-table-module.md",
+      "legacy_merged_branches": []
+    },
+    {
+      "id": 19,
+      "text": "Add tests for table module independent of CLI parsing.",
+      "slug": "independent-table-module-tests",
+      "branch": "db/19-independent-table-module-tests",
+      "spec_path": "docs/specs/db-step-19-independent-table-module-tests.md",
+      "legacy_merged_branches": []
+    },
+    {
+      "id": 20,
+      "text": "Update the spec/README with the new commands.",
+      "slug": "update-spec-readme-commands",
+      "branch": "db/20-update-spec-readme-commands",
+      "spec_path": "docs/specs/db-step-20-update-spec-readme-commands.md",
+      "legacy_merged_branches": []
+    },
+    {
+      "id": 21,
+      "text": "Design a fixed-size binary record layout (id + fixed-length bytes).",
+      "slug": "fixed-size-binary-record-layout",
+      "branch": "db/21-fixed-size-binary-record-layout",
+      "spec_path": "docs/specs/db-step-21-fixed-size-binary-record-layout.md",
+      "legacy_merged_branches": []
+    },
+    {
+      "id": 22,
+      "text": "Write one record to a file with `fwrite`.",
+      "slug": "write-record-with-fwrite",
+      "branch": "db/22-write-record-with-fwrite",
+      "spec_path": "docs/specs/db-step-22-write-record-with-fwrite.md",
+      "legacy_merged_branches": []
+    },
+    {
+      "id": 23,
+      "text": "Read one record back with `fread` and verify round-trip.",
+      "slug": "read-record-fread-roundtrip",
+      "branch": "db/23-read-record-fread-roundtrip",
+      "spec_path": "docs/specs/db-step-23-read-record-fread-roundtrip.md",
+      "legacy_merged_branches": []
+    },
+    {
+      "id": 24,
+      "text": "Implement `save <file>` command using the table.",
+      "slug": "save-command-using-table",
+      "branch": "db/24-save-command-using-table",
+      "spec_path": "docs/specs/db-step-24-save-command-using-table.md",
+      "legacy_merged_branches": []
+    },
+    {
+      "id": 25,
+      "text": "Implement `load <file>` command populating the table.",
+      "slug": "load-command-populate-table",
+      "branch": "db/25-load-command-populate-table",
+      "spec_path": "docs/specs/db-step-25-load-command-populate-table.md",
+      "legacy_merged_branches": []
+    },
+    {
+      "id": 26,
+      "text": "Handle short reads / corrupt file length gracefully.",
+      "slug": "handle-short-corrupt-reads",
+      "branch": "db/26-handle-short-corrupt-reads",
+      "spec_path": "docs/specs/db-step-26-handle-short-corrupt-reads.md",
+      "legacy_merged_branches": []
+    },
+    {
+      "id": 27,
+      "text": "Add a file header (magic number, version, record count).",
+      "slug": "file-header-magic-version-count",
+      "branch": "db/27-file-header-magic-version-count",
+      "spec_path": "docs/specs/db-step-27-file-header-magic-version-count.md",
+      "legacy_merged_branches": []
+    },
+    {
+      "id": 28,
+      "text": "Validate the header on load; reject unknown versions.",
+      "slug": "validate-header-reject-versions",
+      "branch": "db/28-validate-header-reject-versions",
+      "spec_path": "docs/specs/db-step-28-validate-header-reject-versions.md",
+      "legacy_merged_branches": []
+    },
+    {
+      "id": 29,
+      "text": "Add tests using a temp file per test run.",
+      "slug": "temp-file-per-test",
+      "branch": "db/29-temp-file-per-test",
+      "spec_path": "docs/specs/db-step-29-temp-file-per-test.md",
+      "legacy_merged_branches": []
+    },
+    {
+      "id": 30,
+      "text": "Document the on-disk format in an ADR.",
+      "slug": "document-disk-format-adr",
+      "branch": "db/30-document-disk-format-adr",
+      "spec_path": "docs/specs/db-step-30-document-disk-format-adr.md",
+      "legacy_merged_branches": []
+    },
+    {
+      "id": 31,
+      "text": "Introduce a fixed-size \"page\" (e.g., 4KB) as the unit of I/O.",
+      "slug": "fixed-size-io-page",
+      "branch": "db/31-fixed-size-io-page",
+      "spec_path": "docs/specs/db-step-31-fixed-size-io-page.md",
+      "legacy_merged_branches": []
+    },
+    {
+      "id": 32,
+      "text": "Pack multiple records into one page with a small page header.",
+      "slug": "pack-records-page-header",
+      "branch": "db/32-pack-records-page-header",
+      "spec_path": "docs/specs/db-step-32-pack-records-page-header.md",
+      "legacy_merged_branches": []
+    },
+    {
+      "id": 33,
+      "text": "Implement page read/write functions (`read_page`, `write_page`).",
+      "slug": "page-read-write-functions",
+      "branch": "db/33-page-read-write-functions",
+      "spec_path": "docs/specs/db-step-33-page-read-write-functions.md",
+      "legacy_merged_branches": []
+    },
+    {
+      "id": 34,
+      "text": "Add a free-space or slot count per page.",
+      "slug": "free-space-slot-count",
+      "branch": "db/34-free-space-slot-count",
+      "spec_path": "docs/specs/db-step-34-free-space-slot-count.md",
+      "legacy_merged_branches": []
+    },
+    {
+      "id": 35,
+      "text": "Implement \"append record\" that finds a page with space or allocates a new one.",
+      "slug": "append-record-allocate-page",
+      "branch": "db/35-append-record-allocate-page",
+      "spec_path": "docs/specs/db-step-35-append-record-allocate-page.md",
+      "legacy_merged_branches": []
+    },
+    {
+      "id": 36,
+      "text": "Implement full-table scan across all pages.",
+      "slug": "full-table-page-scan",
+      "branch": "db/36-full-table-page-scan",
+      "spec_path": "docs/specs/db-step-36-full-table-page-scan.md",
+      "legacy_merged_branches": []
+    },
+    {
+      "id": 37,
+      "text": "Implement delete-with-compaction inside a page.",
+      "slug": "page-delete-compaction",
+      "branch": "db/37-page-delete-compaction",
+      "spec_path": "docs/specs/db-step-37-page-delete-compaction.md",
+      "legacy_merged_branches": []
+    },
+    {
+      "id": 38,
+      "text": "Add a page cache (small fixed array of recently used pages).",
+      "slug": "small-fixed-page-cache",
+      "branch": "db/38-small-fixed-page-cache",
+      "spec_path": "docs/specs/db-step-38-small-fixed-page-cache.md",
+      "legacy_merged_branches": []
+    },
+    {
+      "id": 39,
+      "text": "Add cache eviction (simple LRU or clock).",
+      "slug": "simple-cache-eviction",
+      "branch": "db/39-simple-cache-eviction",
+      "spec_path": "docs/specs/db-step-39-simple-cache-eviction.md",
+      "legacy_merged_branches": []
+    },
+    {
+      "id": 40,
+      "text": "Benchmark scan performance before/after caching.",
+      "slug": "benchmark-scan-cache-performance",
+      "branch": "db/40-benchmark-scan-cache-performance",
+      "spec_path": "docs/specs/db-step-40-benchmark-scan-cache-performance.md",
+      "legacy_merged_branches": []
+    },
+    {
+      "id": 41,
+      "text": "Implement a simple sorted-array index of id → page/slot.",
+      "slug": "sorted-id-page-slot-index",
+      "branch": "db/41-sorted-id-page-slot-index",
+      "spec_path": "docs/specs/db-step-41-sorted-id-page-slot-index.md",
+      "legacy_merged_branches": []
+    },
+    {
+      "id": 42,
+      "text": "Implement binary search over the sorted index.",
+      "slug": "binary-index-search",
+      "branch": "db/42-binary-index-search",
+      "spec_path": "docs/specs/db-step-42-binary-index-search.md",
+      "legacy_merged_branches": []
+    },
+    {
+      "id": 43,
+      "text": "Keep the index in sync on insert.",
+      "slug": "sync-index-on-insert",
+      "branch": "db/43-sync-index-on-insert",
+      "spec_path": "docs/specs/db-step-43-sync-index-on-insert.md",
+      "legacy_merged_branches": []
+    },
+    {
+      "id": 44,
+      "text": "Keep the index in sync on delete.",
+      "slug": "sync-index-on-delete",
+      "branch": "db/44-sync-index-on-delete",
+      "spec_path": "docs/specs/db-step-44-sync-index-on-delete.md",
+      "legacy_merged_branches": []
+    },
+    {
+      "id": 45,
+      "text": "Rebuild the index from a full table scan (recovery path).",
+      "slug": "rebuild-index-table-scan",
+      "branch": "db/45-rebuild-index-table-scan",
+      "spec_path": "docs/specs/db-step-45-rebuild-index-table-scan.md",
+      "legacy_merged_branches": []
+    },
+    {
+      "id": 46,
+      "text": "Replace linear `get` with index-based lookup.",
+      "slug": "replace-linear-get-index",
+      "branch": "db/46-replace-linear-get-index",
+      "spec_path": "docs/specs/db-step-46-replace-linear-get-index.md",
+      "legacy_merged_branches": []
+    },
+    {
+      "id": 47,
+      "text": "Measure and compare lookup cost with/without the index.",
+      "slug": "compare-index-lookup-cost",
+      "branch": "db/47-compare-index-lookup-cost",
+      "spec_path": "docs/specs/db-step-47-compare-index-lookup-cost.md",
+      "legacy_merged_branches": []
+    },
+    {
+      "id": 48,
+      "text": "Introduce a minimal B-tree node structure (conceptual step).",
+      "slug": "minimal-btree-node-structure",
+      "branch": "db/48-minimal-btree-node-structure",
+      "spec_path": "docs/specs/db-step-48-minimal-btree-node-structure.md",
+      "legacy_merged_branches": []
+    },
+    {
+      "id": 49,
+      "text": "Implement B-tree search only (no insert yet) over static data.",
+      "slug": "static-btree-search-only",
+      "branch": "db/49-static-btree-search-only",
+      "spec_path": "docs/specs/db-step-49-static-btree-search-only.md",
+      "legacy_merged_branches": []
+    },
+    {
+      "id": 50,
+      "text": "Implement B-tree insert with leaf splitting.",
+      "slug": "btree-insert-leaf-splitting",
+      "branch": "db/50-btree-insert-leaf-splitting",
+      "spec_path": "docs/specs/db-step-50-btree-insert-leaf-splitting.md",
+      "legacy_merged_branches": []
+    },
+    {
+      "id": 51,
+      "text": "Add a write-ahead log (WAL) record format.",
+      "slug": "write-ahead-log-format",
+      "branch": "db/51-write-ahead-log-format",
+      "spec_path": "docs/specs/db-step-51-write-ahead-log-format.md",
+      "legacy_merged_branches": []
+    },
+    {
+      "id": 52,
+      "text": "Append to WAL before mutating in-memory state.",
+      "slug": "append-wal-before-mutation",
+      "branch": "db/52-append-wal-before-mutation",
+      "spec_path": "docs/specs/db-step-52-append-wal-before-mutation.md",
+      "legacy_merged_branches": []
+    },
+    {
+      "id": 53,
+      "text": "Implement crash-recovery replay of the WAL on startup.",
+      "slug": "wal-startup-recovery-replay",
+      "branch": "db/53-wal-startup-recovery-replay",
+      "spec_path": "docs/specs/db-step-53-wal-startup-recovery-replay.md",
+      "legacy_merged_branches": []
+    },
+    {
+      "id": 54,
+      "text": "Add a checkpoint step that truncates the WAL after persisting.",
+      "slug": "checkpoint-truncate-wal",
+      "branch": "db/54-checkpoint-truncate-wal",
+      "spec_path": "docs/specs/db-step-54-checkpoint-truncate-wal.md",
+      "legacy_merged_branches": []
+    },
+    {
+      "id": 55,
+      "text": "Add basic transaction boundaries: `begin`, `commit`, `rollback` commands.",
+      "slug": "transaction-begin-commit-rollback",
+      "branch": "db/55-transaction-begin-commit-rollback",
+      "spec_path": "docs/specs/db-step-55-transaction-begin-commit-rollback.md",
+      "legacy_merged_branches": []
+    },
+    {
+      "id": 56,
+      "text": "Buffer writes during a transaction; apply atomically on commit.",
+      "slug": "buffered-transaction-commit",
+      "branch": "db/56-buffered-transaction-commit",
+      "spec_path": "docs/specs/db-step-56-buffered-transaction-commit.md",
+      "legacy_merged_branches": []
+    },
+    {
+      "id": 57,
+      "text": "Discard buffered writes on rollback.",
+      "slug": "discard-rollback-buffered-writes",
+      "branch": "db/57-discard-rollback-buffered-writes",
+      "spec_path": "docs/specs/db-step-57-discard-rollback-buffered-writes.md",
+      "legacy_merged_branches": []
+    },
+    {
+      "id": 58,
+      "text": "Add a simple single-writer lock to prevent concurrent corruption.",
+      "slug": "single-writer-corruption-lock",
+      "branch": "db/58-single-writer-corruption-lock",
+      "spec_path": "docs/specs/db-step-58-single-writer-corruption-lock.md",
+      "legacy_merged_branches": []
+    },
+    {
+      "id": 59,
+      "text": "Write a fault-injection test (simulate crash mid-write) and verify recovery.",
+      "slug": "fault-injection-crash-recovery-test",
+      "branch": "db/59-fault-injection-crash-recovery-test",
+      "spec_path": "docs/specs/db-step-59-fault-injection-crash-recovery-test.md",
+      "legacy_merged_branches": []
+    },
+    {
+      "id": 60,
+      "text": "Write a final ADR summarizing the storage architecture and remaining tradeoffs.",
+      "slug": "final-storage-architecture-adr",
+      "branch": "db/60-final-storage-architecture-adr",
+      "spec_path": "docs/specs/db-step-60-final-storage-architecture-adr.md",
+      "legacy_merged_branches": []
+    }
+  ]
+}

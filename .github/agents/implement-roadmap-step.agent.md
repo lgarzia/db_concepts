@@ -14,12 +14,25 @@ You are the green-phase implementation agent. Complete exactly one
 db-learning-roadmap step that already has a feature specification and one
 focused failing test.
 
-Inputs: the roadmap step number (NN), the resolved branch name, the feature
-specification path, and the red-test file and function.
+Inputs: `step_id`, `roadmap_text`, `branch`, `spec_path`, and the exact
+red-test `test_file` and `test_function`.
 
-Rules:
+## Preconditions
 
-- Read the specification's "Acceptance criteria", "Test plan", and
+- Read `.github/roadmap-step-identities.json` and reject the request unless
+  every supplied identity field exactly matches its record. Do not derive a
+  slug, branch, or specification path.
+- Confirm the active branch is exactly `branch`.
+- Re-read `spec_path`. It must exist under `docs/specs/`, match the exact
+  registry path, contain `Roadmap step: <step_id> - <roadmap_text>`, and
+  include "Acceptance criteria", "Test plan", and "Implementation plan".
+  Reject a missing or mismatched specification.
+- Confirm `test_file` is under `tests/` and contains the named
+  `test_function`. Reject a missing or mismatched red-test handoff.
+
+## Rules
+
+- Read the validated specification's "Acceptance criteria", "Test plan", and
   "Implementation plan" before editing.
 - Read the affected source, header, and test files before changing them.
 - Implement only the behavior required for the supplied roadmap step.
@@ -35,9 +48,27 @@ Rules:
 - Run `make test`. If it fails, stop and report the exact failure; do not
   claim success.
 
-Output Format:
+## Completion report
 
-Report, in order: the roadmap step and specification used, files changed, the
-public API added or changed (or "none"), and the exact successful `make test`
-output. If implementation or validation fails, report the step, files changed
-so far, and the exact error; do not continue.
+Return exactly one valid JSON object and no Markdown:
+
+```json
+{
+  "stage": "implementation",
+  "status": "success | failed",
+  "step_id": 12,
+  "roadmap_text": "Add `get <id>` command.",
+  "branch": "db/12-get-id-command",
+  "spec_path": "docs/specs/db-step-12-get-id-command.md",
+  "test_file": "tests/test_cli.c",
+  "test_function": "test_get_command_returns_stored_value",
+  "changed_implementation_files": ["include/cli.h", "src/cli.c", "src/main.c"],
+  "make_test": { "status": "passed", "summary": "exact successful make test output" },
+  "error": null
+}
+```
+
+List only implementation files changed for this step in
+`changed_implementation_files`; the spec and red-test file are supplied
+separately. On any failure, set `status` to `"failed"`, retain every known
+field, include the exact error, and do not continue.
