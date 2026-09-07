@@ -104,8 +104,19 @@ int main(void)
             continue;
         }
 
+        if (result.type == CLI_COMMAND_GET)
+        {
+            table_record record;
+
+            if (table_find_by_id(&records, result.id, &record))
+            {
+                printf("Found record %d: %s\n", record.id, record.value);
+            }
+            continue;
+        }
+
         fprintf(stderr,
-                "Invalid command. Usage: read <string>, write <string>, insert <id> <value>, delete <id>, or quit.\n");
+                "Invalid command. Usage: read <string>, write <string>, insert <id> <value>, delete <id>, get <id>, or quit.\n");
     }
 
     return 0;

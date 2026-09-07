@@ -48,6 +48,15 @@ static void test_delete_command_parses_id(void)
     assert(result.id == 42);
 }
 
+static void test_get_command_parses_id(void)
+{
+    cli_command_result result = cli_parse_line("get 42");
+
+    /* A valid get exposes its parsed ID so the session can retrieve that record. */
+    assert(result.type == CLI_COMMAND_GET);
+    assert(result.id == 42);
+}
+
 static void test_const_input_buffer(void)
 {
     const char line[] = "read immutable input";
@@ -108,6 +117,7 @@ int main(void)
     test_insert_command_parses_id_and_value();
     test_insert_command_preserves_signed_id_and_spaces();
     test_delete_command_parses_id();
+    test_get_command_parses_id();
     test_const_input_buffer();
     test_quit_command();
     test_concepts_command();
