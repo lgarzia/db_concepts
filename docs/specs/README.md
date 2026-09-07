@@ -25,6 +25,11 @@ For a minimal starter project, keep specs short and outcome-focused. A useful sp
 
 Use `.github/skills/feature-spec-planning/templates/spec-template.md` as a starting point. The planning workflow is described by `.github/agents/feature-spec.agent.md` and `.github/skills/feature-spec-planning/SKILL.md`.
 
+For a numbered database-learning roadmap step, the exact output path and
+identity come from `.github/roadmap-step-identities.json`. See
+[`../roadmap-step-orchestration.md`](../roadmap-step-orchestration.md) for the
+full CLI workflow and its required post-write checks.
+
 ## Document boundaries
 
 - A spec describes what should be built and how completion will be verified.

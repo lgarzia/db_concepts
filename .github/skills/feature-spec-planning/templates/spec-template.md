@@ -2,6 +2,7 @@
 
 - Status: Proposed
 - Owner: [person or team]
+- Roadmap step: [NN - exact roadmap step text]
 - Related ADR: [path or None]
 
 ## Goal
