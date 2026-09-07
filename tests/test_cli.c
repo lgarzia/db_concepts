@@ -39,6 +39,15 @@ static void test_insert_command_preserves_signed_id_and_spaces(void)
     assert(strcmp(result.value, "value with spaces") == 0);
 }
 
+static void test_delete_command_parses_id(void)
+{
+    cli_command_result result = cli_parse_line("delete 42");
+
+    /* A valid delete exposes its parsed ID so the session can remove that record. */
+    assert(result.type == CLI_COMMAND_DELETE);
+    assert(result.id == 42);
+}
+
 static void test_const_input_buffer(void)
 {
     const char line[] = "read immutable input";
@@ -98,6 +107,7 @@ int main(void)
     test_write_command_preserves_spaces();
     test_insert_command_parses_id_and_value();
     test_insert_command_preserves_signed_id_and_spaces();
+    test_delete_command_parses_id();
     test_const_input_buffer();
     test_quit_command();
     test_concepts_command();

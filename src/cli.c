@@ -71,6 +71,56 @@ static cli_command_result parse_insert(const char *argument, size_t argument_len
     return result;
 }
 
+static cli_command_result parse_delete(const char *argument, size_t argument_length)
+{
+    cli_command_result result = invalid_result();
+    const char *id_end = argument;
+    const char *trailing;
+    char id_buffer[32];
+    size_t id_length;
+    long parsed_id;
+    char *endptr;
+
+    while ((size_t)(id_end - argument) < argument_length &&
+           *id_end != ' ' && *id_end != '\t')
+    {
+        id_end++;
+    }
+
+    id_length = (size_t)(id_end - argument);
+    if (id_length == 0 || id_length >= sizeof(id_buffer))
+    {
+        return result;
+    }
+
+    trailing = id_end;
+    while ((size_t)(trailing - argument) < argument_length &&
+           (*trailing == ' ' || *trailing == '\t'))
+    {
+        trailing++;
+    }
+
+    if ((size_t)(trailing - argument) != argument_length)
+    {
+        return result;
+    }
+
+    memcpy(id_buffer, argument, id_length);
+    id_buffer[id_length] = '\0';
+
+    errno = 0;
+    parsed_id = strtol(id_buffer, &endptr, 10);
+    if (endptr == id_buffer || *endptr != '\0' || errno == ERANGE ||
+        parsed_id < INT_MIN || parsed_id > INT_MAX)
+    {
+        return result;
+    }
+
+    result.type = CLI_COMMAND_DELETE;
+    result.id = (int)parsed_id;
+    return result;
+}
+
 static int starts_with_command(const char *line,
                                size_t line_length,
                                const char *command)
@@ -153,6 +203,18 @@ cli_command_result cli_parse_line(const char *line)
         }
 
         return parse_insert(argument, line_length - (size_t)(argument - line));
+    }
+
+    if (starts_with_command(line, line_length, "delete"))
+    {
+        argument = line + strlen("delete");
+        while ((size_t)(argument - line) < line_length &&
+               (*argument == ' ' || *argument == '\t'))
+        {
+            argument++;
+        }
+
+        return parse_delete(argument, line_length - (size_t)(argument - line));
     }
 
     if (starts_with_command(line, line_length, "read"))

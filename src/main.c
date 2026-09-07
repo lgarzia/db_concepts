@@ -95,8 +95,17 @@ int main(void)
             continue;
         }
 
+        if (result.type == CLI_COMMAND_DELETE)
+        {
+            if (table_delete_by_id(&records, result.id))
+            {
+                printf("Deleted record %d.\n", result.id);
+            }
+            continue;
+        }
+
         fprintf(stderr,
-                "Invalid command. Usage: read <string>, write <string>, insert <id> <value>, or quit.\n");
+                "Invalid command. Usage: read <string>, write <string>, insert <id> <value>, delete <id>, or quit.\n");
     }
 
     return 0;
