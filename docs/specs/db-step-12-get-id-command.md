@@ -5,7 +5,7 @@
 - Roadmap step: 12 - Add `get <id>` command.
 - Related ADR: None
 
-## Goal
+## Goa l
 
 Add a `get <id>` command that lets a CLI user retrieve the first matching ID/value record from the process-lifetime in-memory table.
 
