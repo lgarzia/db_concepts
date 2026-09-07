@@ -1,7 +1,24 @@
 #include <assert.h>
+#include <stdio.h>
 #include <string.h>
 
+#if defined(_WIN32)
+#include <io.h>
+#define DUP _dup
+#define DUP2 _dup2
+#define FILE_NO _fileno
+#else
+#include <unistd.h>
+#define DUP dup
+#define DUP2 dup2
+#define FILE_NO fileno
+#endif
+
 #include "cli.h"
+
+#define main cli_main
+#include "../src/main.c"
+#undef main
 
 static void test_read_command(void)
 {
@@ -46,6 +63,54 @@ static void test_delete_command_parses_id(void)
     /* A valid delete exposes its parsed ID so the session can remove that record. */
     assert(result.type == CLI_COMMAND_DELETE);
     assert(result.id == 42);
+}
+
+static void test_delete_missing_id_reports_not_found(void)
+{
+    FILE *input = tmpfile();
+    FILE *stdout_capture = tmpfile();
+    FILE *stderr_capture = tmpfile();
+    char stdout_buffer[256] = {0};
+    char stderr_buffer[256] = {0};
+    int saved_stdin = DUP(FILE_NO(stdin));
+    int saved_stdout = DUP(FILE_NO(stdout));
+    int saved_stderr = DUP(FILE_NO(stderr));
+
+    fputs("delete 999\nquit\n", input);
+    rewind(input);
+
+    DUP2(FILE_NO(input), FILE_NO(stdin));
+    DUP2(FILE_NO(stdout_capture), FILE_NO(stdout));
+    DUP2(FILE_NO(stderr_capture), FILE_NO(stderr));
+
+    cli_main();
+
+    fflush(stdout);
+    fflush(stderr);
+    rewind(stdout_capture);
+    rewind(stderr_capture);
+
+    if (fgets(stdout_buffer, sizeof(stdout_buffer), stdout_capture) != NULL)
+    {
+        /* consume output so the read pointer is positioned for the test assertion */
+    }
+    if (fgets(stderr_buffer, sizeof(stderr_buffer), stderr_capture) != NULL)
+    {
+        /* consume output so the read pointer is positioned for the test assertion */
+    }
+
+    assert(strstr(stdout_buffer, "not found") != NULL ||
+           strstr(stderr_buffer, "not found") != NULL);
+
+    DUP2(saved_stdin, FILE_NO(stdin));
+    DUP2(saved_stdout, FILE_NO(stdout));
+    DUP2(saved_stderr, FILE_NO(stderr));
+    fclose(input);
+    fclose(stdout_capture);
+    fclose(stderr_capture);
+    close(saved_stdin);
+    close(saved_stdout);
+    close(saved_stderr);
 }
 
 static void test_get_command_parses_id(void)
@@ -117,6 +182,7 @@ int main(void)
     test_insert_command_parses_id_and_value();
     test_insert_command_preserves_signed_id_and_spaces();
     test_delete_command_parses_id();
+    test_delete_missing_id_reports_not_found();
     test_get_command_parses_id();
     test_const_input_buffer();
     test_quit_command();
