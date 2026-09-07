@@ -243,6 +243,12 @@ cli_command_result cli_parse_line(const char *line)
         return result;
     }
 
+    if (line_length == strlen("list") && strncmp(line, "list", line_length) == 0)
+    {
+        result.type = CLI_COMMAND_LIST;
+        return result;
+    }
+
     if (starts_with_command(line, line_length, "insert"))
     {
         argument = line + strlen("insert");
