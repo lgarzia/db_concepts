@@ -122,6 +122,15 @@ static void test_get_command_parses_id(void)
     assert(result.id == 42);
 }
 
+static void test_list_command_parses_without_arguments(void)
+{
+    cli_command_result result = cli_parse_line("list");
+
+    /* The list command should be recognized without trailing arguments and reject extra input. */
+    assert(result.type == CLI_COMMAND_LIST);
+    assert(cli_parse_line("list extra").type == CLI_COMMAND_INVALID);
+}
+
 static void test_const_input_buffer(void)
 {
     const char line[] = "read immutable input";
@@ -184,6 +193,7 @@ int main(void)
     test_delete_command_parses_id();
     test_delete_missing_id_reports_not_found();
     test_get_command_parses_id();
+    test_list_command_parses_without_arguments();
     test_const_input_buffer();
     test_quit_command();
     test_concepts_command();

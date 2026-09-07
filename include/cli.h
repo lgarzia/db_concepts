@@ -19,7 +19,8 @@ typedef enum
     CLI_COMMAND_CONCEPTS,
     CLI_COMMAND_INSERT,
     CLI_COMMAND_DELETE,
-    CLI_COMMAND_GET
+    CLI_COMMAND_GET,
+    CLI_COMMAND_LIST
 } cli_command_type;
 
 typedef struct

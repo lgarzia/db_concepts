@@ -119,8 +119,25 @@ int main(void)
             continue;
         }
 
+        if (result.type == CLI_COMMAND_LIST)
+        {
+            size_t index;
+
+            if (records.count == 0)
+            {
+                puts("No records.");
+                continue;
+            }
+
+            for (index = 0; index < records.count; index++)
+            {
+                printf("%d: %s\n", records.records[index].id, records.records[index].value);
+            }
+            continue;
+        }
+
         fprintf(stderr,
-                "Invalid command. Usage: read <string>, write <string>, insert <id> <value>, delete <id>, get <id>, or quit.\n");
+                "Invalid command. Usage: read <string>, write <string>, insert <id> <value>, delete <id>, get <id>, list, or quit.\n");
     }
 
     return 0;
