@@ -101,6 +101,10 @@ int main(void)
             {
                 printf("Deleted record %d.\n", result.id);
             }
+            else
+            {
+                fprintf(stderr, "Record %d not found.\n", result.id);
+            }
             continue;
         }
 

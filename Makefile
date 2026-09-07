@@ -34,7 +34,7 @@ $(TEST_TARGET): src/hello.c tests/test_hello.c
 	@mkdir -p $(BIN_DIR)
 	$(CC) $(CPPFLAGS) $(CFLAGS) $^ -o $@
 
-$(CLI_TEST_TARGET): src/cli.c tests/test_cli.c
+$(CLI_TEST_TARGET): src/cli.c src/concepts.c src/table.c tests/test_cli.c
 	@mkdir -p $(BIN_DIR)
 	$(CC) $(CPPFLAGS) $(CFLAGS) $^ -o $@
 
